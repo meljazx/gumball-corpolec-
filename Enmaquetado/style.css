@@ -1,0 +1,416 @@
+/* ==========================================================================
+   1. VARIABLES Y CONFIGURACIÓN BASE
+   ========================================================================== */
+:root {
+    --bg-sistema: #d9d9d9;       /* El gris de fondo de las capturas */
+    --login-box-bg: #e0e2ff;     /* Azul claro del centro del login */
+    --login-box-border: #8086ff; /* Borde azul del login */
+    --barra-tareas: #807eb4;     /* El morado de la barra inferior y ventanas */
+    --btn-cerrar: #5c4eb4;       /* Morado oscuro del botón cerrar */
+    --rojo-off: #ff0000;         /* Rojo puro para el botón OFF */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-sistema);
+    height: 100vh;
+    overflow: hidden; /* Bloquea el scroll para simular una pantalla real */
+    position: relative;
+    user-select: none; /* Evita que se seleccione el texto al hacer doble clic */
+}
+
+/* ==========================================================================
+   2. PANTALLA DE LOG IN
+   ========================================================================== */
+#login-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-sistema);
+    z-index: 100;
+}
+
+.login-title {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    font-size: 32px;
+    font-weight: normal;
+    color: #000000;
+}
+
+.login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/* El recuadro azul central */
+.logo-square {
+    width: 150px;
+    height: 150px;
+    background-color: var(--login-box-bg);
+    border: 12px solid var(--login-box-border);
+    margin-bottom: 15px;
+}
+
+/* Campos de texto */
+.input-field {
+    width: 100%;
+    background: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 16px;
+    color: #000000;
+    outline: none;
+}
+
+/* Contenedor especial para el password + icono */
+.password-wrapper {
+    width: 100%;
+    display: flex;
+    background: #ffffff;
+}
+
+.password-wrapper .input-field {
+    flex-grow: 1;
+}
+
+.network-icon {
+    background-color: #6a6466; /* Color grisáceo del icono de red al lado del pass */
+    border: none;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Botón cerrar del login */
+.btn-login-close {
+    background-color: var(--btn-cerrar);
+    color: #ffffff;
+    border: none;
+    padding: 6px 35px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+/* Botón OFF en la esquina inferior derecha */
+.btn-off {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--rojo-off);
+    color: #ffffff;
+    border: none;
+    padding: 4px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   3. ESCRITORIO Y ICONOS
+   ========================================================================== */
+#desktop-screen {
+    display: none; /* Se activa desde JS cambiando a 'block' */
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.desktop-icon {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 110px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Variación específica para el icono rojo de la cámara */
+.icon-box.camera-red {
+    background-color: #df6464;
+    border-radius: 12px; /* Completamente cuadrado según la imagen */
+}
+
+.desktop-icon span {
+    font-size: 14px;
+    color: #000000;
+}
+
+/* ==========================================================================
+   4. BARRA DE TAREAS
+   ========================================================================== */
+.taskbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: var(--barra-tareas);
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    z-index: 90;
+}
+
+/* Botón de inicio gris redondo */
+.start-button {
+    width: 34px;
+    height: 34px;
+    background-color: var(--bg-sistema);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   5. VENTANAS DE PROGRAMAS (SISTEMA DE POPUPS)
+   ========================================================================== */
+.window-popup {
+    position: absolute;
+    top: 20%; /* Ajusta la posición si es necesario */
+    left: 25%;
+    width: 600px; /* Un poco más ancha para el diseño detallado */
+    background-color: #c0c0c0; /* Gris clásico de Win9x */
+    border: 3px outset #f0f0f0; /* Borde con efecto 3D */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    display: none; /* Se activa con JS */
+    z-index: 100; /* Asegura que esté encima de todo */
+    font-family: "MS Sans Serif", Arial, sans-serif; /* Fuente retro si está disponible */
+}
+
+.window-bar {
+    background-color: #000080; /* Azul oscuro clásico */
+    color: #ffffff;
+    padding: 3px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.window-close-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.window-body {
+    padding: 25px;
+    text-align: center;
+}
+
+
+
+
+/* CLASES NUEVAS PARA LOS DETALLES INTERNOS */
+
+.window-tabs {
+    display: flex;
+    background-color: #c0c0c0;
+    border-bottom: 2px solid #808080;
+    padding: 2px 2px 0;
+}
+
+.tab {
+    padding: 4px 10px;
+    background-color: #c0c0c0;
+    border: 2px outset #f0f0f0;
+    border-bottom: none;
+    margin-right: 2px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.tab.active {
+    background-color: #d0d0d0;
+    border-bottom: 2px solid #d0d0d0; /* "Oculta" el borde inferior */
+    margin-bottom: -2px; /* Alinea con el panel */
+}
+
+.tab-panel {
+    display: none; /* Oculto por defecto */
+    padding: 10px;
+    background-color: #d0d0d0; /* Color del panel interno */
+    border: 2px inset #f0f0f0; /* Borde interno 3D */
+}
+
+.tab-panel.active {
+    display: flex; /* Muestra el panel activo */
+    gap: 15px;
+}
+
+/* Sub-marcos internos */
+.inset-frame {
+    flex: 1;
+    border: 2px inset #f0f0f0;
+    padding: 10px;
+}
+
+.legend-text {
+    position: absolute;
+    margin-top: -18px;
+    background-color: #d0d0d0;
+    padding: 0 5px;
+    font-size: 12px;
+    color: #404040;
+}
+
+/* Botones inferiores */
+.window-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 10px;
+    border-top: 1px solid #808080;
+}
+
+.win9x-btn {
+    padding: 4px 20px;
+    background-color: #c0c0c0;
+    border: 2px outset #f0f0f0;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.win9x-btn:active {
+    border: 2px inset #f0f0f0;
+}
+
+/* ==========================================================================
+   6. ESTILOS DE VENTANAS DE WINDOWS (Paint, Archivos, Cámara)
+   ========================================================================== */
+
+/* Barra de menú superior (File, Edit, View...) */
+.win-menu-bar {
+    display: flex;
+    background-color: #c0c0c0;
+    padding: 2px 5px;
+    border-bottom: 1px solid #808080;
+    font-size: 12px;
+}
+
+.win-menu-item {
+    padding: 2px 6px;
+    cursor: pointer;
+}
+
+.win-menu-item:hover {
+    background-color: #000080;
+    color: white;
+}
+
+/* Contenedor principal dividido (Sidebar + Main) */
+.win-split-body {
+    display: flex;
+    height: 300px; /* Altura base para las ventanas */
+    background-color: #c0c0c0;
+    padding: 2px;
+}
+
+/* Panel izquierdo (Herramientas de paint o carpetas) */
+.win-sidebar {
+    width: 60px;
+    background-color: #c0c0c0;
+    border: 2px inset #f0f0f0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 2px;
+    margin-right: 4px;
+}
+
+/* Área principal (Lienzo blanco o vista de archivos) */
+.win-main-area {
+    flex-grow: 1;
+    background-color: #ffffff;
+    border: 2px inset #f0f0f0;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+/* Barra de direcciones (Administrador de archivos) */
+.win-address-bar {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    background-color: #c0c0c0;
+    border-bottom: 2px groove #f0f0f0;
+    font-size: 12px;
+}
+
+.win-address-input {
+    flex-grow: 1;
+    margin-left: 5px;
+    padding: 2px;
+    border: 2px inset #f0f0f0;
+}
+
+/* Estilos específicos para la Cámara */
+.camera-viewport {
+    flex-grow: 1;
+    background-color: #000000;
+    border: 2px inset #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00ff00; /* Texto verde estilo grabación */
+    font-family: monospace;
+    position: relative;
+}
+
+.camera-controls {
+    height: 50px;
+    background-color: #c0c0c0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #808080;
+}
+
+.btn-capture {
+    width: 30px;
+    height: 30px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    border: 2px outset #f0f0f0;
+    cursor: pointer;
+}
+
+.btn-capture:active {
+    border: 2px inset #f0f0f0;
+}

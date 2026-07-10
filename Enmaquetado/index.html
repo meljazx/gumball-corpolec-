@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gumball Corporlec OS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login-screen">
+        <h1 class="login-title">log in</h1>
+        
+        <div class="login-container">
+            <div class="logo-square"></div>
+            
+            <input type="text" class="input-field" placeholder="usuario (tu correo)">
+            
+            <div class="password-wrapper">
+                <input type="password" class="input-field" placeholder="contrasena">
+                <button class="network-icon" onclick="login()">
+                    <span style="color: #ffffff; font-size: 18px; font-weight: bold;">➔</span>
+                </button>
+            </div>
+            
+            <button class="btn-login-close" onclick="cerrarLogin()">cerrar</button>
+        </div>
+
+        <button class="btn-off">OFF</button>
+    </div>
+
+
+    <div id="desktop-screen">
+        
+        <div class="desktop-icon" style="top: 25px; left: 25px;" onclick="abrirPrograma('pop-camara')">
+            <div class="icon-box camera-red"></div>
+            <span>camara</span>
+        </div>
+        
+        <div class="desktop-icon" style="top: 135px; left: 25px;" onclick="abrirPrograma('pop-paint')">
+            <div class="icon-box">🎨</div>
+            <span>paint.exe</span>
+        </div>
+        
+        <div class="desktop-icon" style="top: 245px; left: 25px;" onclick="abrirPrograma('pop-notas')">
+            <div class="icon-box">📝</div>
+            <span>bloc de notas</span>
+        </div>
+        
+        <div class="desktop-icon" style="top: 355px; left: 25px;" onclick="abrirPrograma('pop-temporizador')">
+            <div class="icon-box">⏱️</div>
+            <span>temporizador</span>
+        </div>
+
+        <div class="desktop-icon" style="top: 25px; left: 150px;" onclick="abrirPrograma('pop-archivos')">
+            <div class="icon-box" style="background: transparent;">📁</div>
+            <span>adm de archivos</span>
+        </div>
+
+        <div class="desktop-icon" style="top: 25px; right: 25px;" onclick="abrirPrograma('pop-papelera')">
+            <div class="icon-box" style="background: transparent;">🗑️</div>
+            <span>papelera</span>
+        </div>
+
+
+        <div class="window-popup" id="pop-temporizador">
+    <div class="window-bar">
+        <span>Date/Time Properties</span>
+        <div style="display: flex; gap: 5px;">
+            <button class="window-close-btn" style="font-size: 16px;">?</button>
+            <button class="window-close-btn" onclick="cerrarPrograma('pop-temporizador')">X</button>
+        </div>
+    </div>
+    
+    <div class="window-tabs">
+        <div class="tab active">Date & Time</div>
+        <div class="tab">Time Zone</div>
+    </div>
+
+    <div class="tab-panel active" id="tab-date-time">
+        
+        <div class="inset-frame" style="position: relative;">
+            <span class="legend-text">Date</span>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <select style="flex: 2; padding: 2px;"><option>April</option></select>
+                <input type="number" value="2003" style="flex: 1; padding: 2px; text-align: right;">
+            </div>
+            <table style="width: 100%; text-align: center; font-size: 11px; border-collapse: collapse;">
+                <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
+                <tr style="height: 15px;"></tr>
+                <tr><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+                <tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+                <tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+                <tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td style="background-color: #000080; color: white;">25</td><td>26</td></tr>
+                <tr><td>27</td><td>28</td><td>29</td><td>30</td><td></td><td></td><td></td></tr>
+            </table>
+        </div>
+
+        <div class="inset-frame" style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <span class="legend-text">Time</span>
+            <div style="width: 100px; height: 100px; border: 1px dotted #808080; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #606060;">Reloj Analógico</div>
+            <div style="margin-top: 10px; display: flex; gap: 5px; align-items: center;">
+                <input type="text" value="1 : 26 : 27 PM" style="padding: 2px; text-align: center; width: 100px;">
+                <div style="display: flex; flex-direction: column; gap: 1px;">
+                    <button style="font-size: 8px; padding: 0 4px;">▲</button>
+                    <button style="font-size: 8px; padding: 0 4px;">▼</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="padding: 10px 15px; font-size: 11px; color: #404040;">
+        Current time zone: Pacific Daylight Time
+    </div>
+
+    <div class="window-footer">
+        <button class="win9x-btn" onclick="cerrarPrograma('pop-temporizador')">OK</button>
+        <button class="win9x-btn" onclick="cerrarPrograma('pop-temporizador')">Cancel</button>
+        <button class="win9x-btn" style="color: #808080;" disabled>Apply</button>
+    </div>
+</div>
+
+        <div class="window-popup" id="pop-notas" style="top: 30%; left: 40%;">
+            <div class="window-bar">
+                <span>bloc de notas</span>
+                <button class="window-close-btn" onclick="cerrarPrograma('pop-notas')">X</button>
+            </div>
+            <div class="window-body">
+                <textarea style="width: 100%; height: 100px; padding: 5px;" placeholder="Escribe aquí..."></textarea>
+            </div>
+        </div>
+
+        <div class="window-popup" id="pop-paint" style="top: 5%; left: 15%; width: 500px;">
+            <div class="window-bar">
+                <span>untitled - Paint</span>
+                <button class="window-close-btn" onclick="cerrarPrograma('pop-paint')">X</button>
+            </div>
+            <div class="win-menu-bar">
+                <span class="win-menu-item">File</span>
+                <span class="win-menu-item">Edit</span>
+                <span class="win-menu-item">View</span>
+                <span class="win-menu-item">Image</span>
+                <span class="win-menu-item">Colors</span>
+                <span class="win-menu-item">Help</span>
+            </div>
+            <div class="win-split-body">
+                <div class="win-sidebar">
+                    <div style="width: 24px; height: 24px; background: white; border: 1px solid #808080; margin: 1px;">✏️</div>
+                    <div style="width: 24px; height: 24px; background: white; border: 1px solid #808080; margin: 1px;">🪣</div>
+                    <div style="width: 24px; height: 24px; background: white; border: 1px solid #808080; margin: 1px;">A</div>
+                    <div style="width: 24px; height: 24px; background: white; border: 1px solid #808080; margin: 1px;">🔍</div>
+                </div>
+                <div class="win-main-area" style="cursor: crosshair;"></div>
+            </div>
+        </div>
+
+        <div class="window-popup" id="pop-archivos" style="top: 10%; left: 20%; width: 550px;">
+            <div class="window-bar">
+                <span>C:\Windows\System32</span>
+                <button class="window-close-btn" onclick="cerrarPrograma('pop-archivos')">X</button>
+            </div>
+            <div class="win-menu-bar">
+                <span class="win-menu-item">File</span>
+                <span class="win-menu-item">Edit</span>
+                <span class="win-menu-item">View</span>
+                <span class="win-menu-item">Favorites</span>
+                <span class="win-menu-item">Tools</span>
+                <span class="win-menu-item">Help</span>
+            </div>
+            <div class="win-address-bar">
+                <span>Address</span>
+                <input type="text" class="win-address-input" value="C:\Windows\System32" readonly>
+            </div>
+            <div class="win-split-body">
+                <div class="win-sidebar" style="width: 150px; background-color: #ffffff;">
+                    <ul style="list-style: none; font-size: 12px; padding: 5px;">
+                        <li>[-] Local Disk (C:)</li>
+                        <li style="padding-left: 15px;">[-] Windows</li>
+                        <li style="padding-left: 30px; background-color: #000080; color: white;">System32</li>
+                        <li style="padding-left: 30px;">Fonts</li>
+                    </ul>
+                </div>
+                <div class="win-main-area" style="display: flex; gap: 15px; align-content: flex-start; flex-wrap: wrap;">
+                    <div style="text-align: center; font-size: 12px;"><div style="font-size: 24px;">📁</div>drivers</div>
+                    <div style="text-align: center; font-size: 12px;"><div style="font-size: 24px;">⚙️</div>config.sys</div>
+                    <div style="text-align: center; font-size: 12px;"><div style="font-size: 24px;">📝</div>log.txt</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="window-popup" id="pop-camara" style="top: 15%; left: 30%; width: 400px;">
+            <div class="window-bar">
+                <span>Webcam Capture</span>
+                <button class="window-close-btn" onclick="cerrarPrograma('pop-camara')">X</button>
+            </div>
+            <div style="display: flex; flex-direction: column; height: 300px; padding: 5px; background-color: #c0c0c0;">
+                <div class="camera-viewport">
+                    <span style="position: absolute; top: 10px; right: 10px; color: red;">● REC</span>
+                    [ CÁMARA APAGADA / NO FEED ]
+                </div>
+                <div class="camera-controls">
+                    <button class="btn-capture"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="window-popup" id="pop-papelera" style="top: 25%; left: 35%; width: 450px;">
+            <div class="window-bar">
+                <span>Recycle Bin</span>
+                <button class="window-close-btn" onclick="cerrarPrograma('pop-papelera')">X</button>
+            </div>
+            <div class="win-menu-bar">
+                <span class="win-menu-item">File</span>
+                <span class="win-menu-item">Edit</span>
+                <span class="win-menu-item">View</span>
+                <span class="win-menu-item">Help</span>
+            </div>
+            <div style="background-color: #c0c0c0; padding: 5px; border-bottom: 2px groove #f0f0f0;">
+                <button class="win9x-btn">Empty Recycle Bin</button>
+            </div>
+            <div class="win-split-body" style="height: 250px;">
+                <div class="win-main-area" style="display: flex; gap: 15px; align-content: flex-start; flex-wrap: wrap; background-color: #ffffff;">
+                    <div style="text-align: center; font-size: 12px; opacity: 0.7;"><div style="font-size: 24px;">📄</div>proyecto.doc</div>
+                    <div style="text-align: center; font-size: 12px; opacity: 0.7;"><div style="font-size: 24px;">🖼️</div>foto_vieja.jpg</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="taskbar">
+            <button class="start-button"></button>
+        </div>
+
+    </div>
+
+    <script>
+        function login() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('desktop-screen').style.display = 'block';
+        }
+
+        function abrirPrograma(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function cerrarPrograma(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
