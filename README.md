@@ -1,2 +1,2 @@
-# gumball-corpolec-
-Pagina web [prototipo base]
+# windows-corrupted-sim-
+Windows7 simulator website 
